@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: weedrec
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27018/weedrec}
+      auto-index-creation: true   # from @Indexed / @CompoundIndex / @TextIndexed
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:weedrec-demo-secret-key-change-me-0123456789abcdef}
+    expiration-ms: 86400000      # 24 h
+  seed:
+    enabled: ${SEED_ENABLED:true} # seed demo data into an empty database
+    farmers: ${SEED_FARMERS:35}         # each farmer gets 1-3 fields, detections and interactions
+    agronomists: ${SEED_AGRONOMISTS:4}  # in addition to the demo accounts
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method

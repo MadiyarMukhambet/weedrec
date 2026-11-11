@@ -1,0 +1,22 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: weedrec-mongo
+    ports:
+      - "27018:27017"   # host port 27018: 27017 is often taken by a local MongoDB service
+    volumes:
+      - mongo-data:/data/db
+
+  # Optional MongoDB web UI: http://localhost:8081
+  mongo-express:
+    image: mongo-express:1
+    container_name: weedrec-mongo-express
+    depends_on: [mongo]
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_CONFIG_BASICAUTH: "false"
+
+volumes:
+  mongo-data:
